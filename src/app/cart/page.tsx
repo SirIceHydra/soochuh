@@ -6,7 +6,7 @@ import useLocalstorage from '@/src/hooks/useLocalstorage';
 import CartDisplayItems from '@/src/components/layout/CartDisplayItems';
 import useProductItems from '@/src/hooks/useProductItems';
 
-export default function page() {
+export default function CartPage() {
   const { loading } = UseProductsReturn();
   const { shopsItem, handleRemove } = useProductItems();
 

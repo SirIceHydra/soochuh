@@ -28,7 +28,7 @@ import FilterOptionMobile from '@/src/components/headers/FilterOptionMobile';
 import TuneIcon from '@mui/icons-material/Tune';
 import ProductCollectionBest from '@/src/components/layout/ProductCollectionBest';
 
-export default function page() {
+export default function BestSellersCollectionPage() {
   const [displayCount, setDisplayCount] = useState<number>(6);
   const { items, loading } = UseProductsReturn();
   const [openFilter, setOpenFilter] = useState(false);

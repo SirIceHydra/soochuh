@@ -35,7 +35,7 @@ import FilterOptionMobile from '@/src/components/headers/FilterOptionMobile';
 import HeartIcon from '@/src/components/layout/heartIcon';
 import ProductCollectionDress from '@/src/components/layout/ProductCollectionDress';
 
-export default function page() {
+export default function DressesCollectionPage() {
   const [displayCount, setDisplayCount] = useState<number>(6);
   const [openFilter, setOpenFilter] = useState(false);
   const dispatch = useDispatch<AppDispatch>();

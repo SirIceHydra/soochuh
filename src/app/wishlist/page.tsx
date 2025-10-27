@@ -2,7 +2,7 @@
 
 import WishlistPage from '@/src/components/layout/WishlistPage';
 
-export default function page() {
+export default function WishlistPageComponent() {
   return (
     <>
       <WishlistPage />

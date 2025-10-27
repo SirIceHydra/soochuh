@@ -25,7 +25,7 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ProductDeatilHome from '@/src/components/layout/ProductDeatilHome';
 
-export default function page({ params }: any) {
+export default function ProductPage({ params }: any) {
   const [singleProduct, setSingleProduct] = useState<Product | null>(null);
   const { id } = params;
 

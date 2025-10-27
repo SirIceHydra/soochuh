@@ -28,7 +28,7 @@ import Image from 'next/image';
 import FilterOptionMobile from '@/src/components/headers/FilterOptionMobile';
 import TuneIcon from '@mui/icons-material/Tune';
 
-function page() {
+export default function AllCollectionPage() {
   const [displayCount, setDisplayCount] = useState<number>(6);
   const [openFilter, setOpenFilter] = useState(false);
   const { items, loading, error } = UseProductsReturn();
@@ -353,5 +353,3 @@ function page() {
     </>
   );
 }
-
-export default page;

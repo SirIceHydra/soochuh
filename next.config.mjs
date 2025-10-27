@@ -11,8 +11,5 @@ const nextConfig = {
       },
     ],
   },
-  api: {
-    externalResolver: true,
-  },
 };
 export default nextConfig;

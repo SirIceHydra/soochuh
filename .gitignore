@@ -1,0 +1,42 @@
+### OS / Editor ###
+.DS_Store
+.Spotlight-V100
+.Trashes
+._*
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*.log
+
+### Node / JS ###
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tsbuildinfo
+
+### Python ###
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env/
+.venv/
+
+### Mac / System ###
+.AppleDouble
+.LSOverride
+
+### Misc ###
+coverage/
+dist/
+build/
+.cache/
+.pytest_cache/
+

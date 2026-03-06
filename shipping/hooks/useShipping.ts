@@ -60,7 +60,7 @@ export function useShipping(): UseShippingReturn {
 
       // Check free shipping threshold
       const cartTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-      const freeShippingThreshold = parseFloat(process.env.REACT_APP_FREE_SHIPPING_THRESHOLD || '1000');
+      const freeShippingThreshold = Number(import.meta.env.VITE_FREE_SHIPPING_THRESHOLD ?? '1499');
       
       if (cartTotal >= freeShippingThreshold) {
         const freeShippingOption = {

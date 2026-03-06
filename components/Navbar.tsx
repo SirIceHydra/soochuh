@@ -28,6 +28,7 @@ const Navbar: React.FC<NavbarProps> = ({ cartCount, onOpenCart, onNavigate }) =>
   const { categories, fetchCategories } = useCategories();
   const kitsCategory = findKitsCategory(categories);
   const kitsHref = kitsCategory ? `/shop?category=${kitsCategory.slug}` : '/shop';
+  const FREE_SHIPPING_THRESHOLD = Number(import.meta.env.VITE_FREE_SHIPPING_THRESHOLD ?? '1499');
 
   useEffect(() => {
     fetchCategories();
@@ -144,18 +145,31 @@ const Navbar: React.FC<NavbarProps> = ({ cartCount, onOpenCart, onNavigate }) =>
 
   return (
     <>
-      {/* Promo Banner - Purple Pop */}
-      <div className="bg-purple-600 text-white text-[10px] sm:text-xs font-bold py-2 sm:py-2.5 text-center tracking-widest z-[60] relative overflow-hidden">
-        <div className="px-2 sm:px-4">
-          <span className="animate-pulse">⚡️</span> <span className="whitespace-nowrap">FREE SHIPPING ON ORDERS OVER R1000</span> <span className="hidden sm:inline">|</span> <span className="block sm:inline">FREE RETURNS</span>
+      {/* Fixed header: promo bar on top, nav slides up to fill space on scroll */}
+      <header className="fixed top-0 left-0 w-full z-[90]">
+        {/* Promo Banner - height stays constant; we fade it out when scrolled */}
+        <div
+          className={`bg-purple-600 text-white text-[10px] sm:text-xs font-bold py-2 sm:py-2.5 text-center tracking-widest transition-opacity duration-500 ease-[cubic-bezier(0.34,1.2,0.64,1)] ${
+            isScrolled ? 'opacity-0' : 'opacity-100'
+          }`}
+        >
+          <div className="px-2 sm:px-4">
+            <span className="animate-pulse">⚡️</span>{' '}
+            <span className="whitespace-nowrap">
+              FREE SHIPPING ON ORDERS OVER R{FREE_SHIPPING_THRESHOLD}
+            </span>{' '}
+            <span className="hidden sm:inline">|</span>{' '}
+            <span className="block sm:inline">FREE RETURNS</span>
+          </div>
         </div>
-      </div>
 
-      <nav 
-        className={`fixed top-9 left-0 w-full z-[90] transition-all duration-500 ${
-          isScrolled ? 'bg-white/90 backdrop-blur-md text-black py-4 shadow-sm border-b border-black/5' : 'bg-white/95 backdrop-blur-sm text-black py-6'
-        } ${mobileMenuOpen ? 'bg-white' : ''}`}
-      >
+        <nav
+          className={`w-full transition-[padding,margin,box-shadow,border-color,background-color] duration-500 ease-[cubic-bezier(0.34,1.2,0.64,1)] ${
+            isScrolled
+              ? 'bg-white/95 backdrop-blur-md text-black py-8 -mt-10 shadow-sm border-b border-black/5'
+              : 'bg-white/95 backdrop-blur-sm text-black py-4 mt-0'
+          } ${mobileMenuOpen ? 'bg-white' : ''}`}
+        >
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10 flex justify-between items-center">
           
           <div className="flex items-center gap-4 flex-1 md:flex-none">
@@ -314,6 +328,7 @@ const Navbar: React.FC<NavbarProps> = ({ cartCount, onOpenCart, onNavigate }) =>
           </div>
         </div>
       </nav>
+      </header>
 
       {/* Mobile Menu Overlay - Full Screen - OUTSIDE nav to cover entire viewport including promo banner */}
       <div 

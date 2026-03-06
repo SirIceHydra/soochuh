@@ -8,7 +8,7 @@ import { formatPrice, isProductInStock } from '../../services/helpers';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { VariationSelector } from '../ui/VariationSelector';
-import { ProductCustomisationFields, calculateAddonFee, type AddonValues } from '../ui/ScrubCustomisationFields';
+import { ProductCustomisationFields, calculateAddonFee, isCustomisationValid, type AddonValues } from '../ui/ScrubCustomisationFields';
 import { uploadScrubLogo } from '../../services/logoUpload';
 import type { Product } from '../core/ports';
 
@@ -169,6 +169,8 @@ export default function DetailsPage() {
   const remainingStock = effectiveStockQty !== undefined ? effectiveStockQty - cartQtyForProduct : undefined;
   const inStock = isProductInStock(effectiveStockStatus, remainingStock);
   const canAddToCart = hasVariable ? Boolean(selectedVariation && inStock) : inStock;
+  const customisationValid = !product.productAddons?.length || isCustomisationValid(product.productAddons as any[], addonValues);
+  const canProceed = canAddToCart && customisationValid;
 
   const hasMultipleImages = !(hasVariable && selectedVariation?.image) && Boolean(product.images && product.images.length > 1);
   const mainImageSrc = (hasVariable && selectedVariation?.image)
@@ -176,7 +178,7 @@ export default function DetailsPage() {
     : (product.images[currentImageIndex] || product.images[0] || '/placeholder-product.jpg');
 
   const handleAddToCart = async () => {
-    if (!canAddToCart) return;
+    if (!canProceed) return;
     setAdding(true);
     try {
       const productAddons: Record<string, string> = {};
@@ -407,17 +409,20 @@ export default function DetailsPage() {
               )}
 
               {/* Add to Cart */}
+              {!customisationValid && product.productAddons?.length > 0 && (
+                <p className="text-sm text-amber-600 mb-2">Please complete the customisation options above.</p>
+              )}
               <button
                 onClick={handleAddToCart}
-                disabled={!canAddToCart || adding}
+                disabled={!canProceed || adding}
                 className={`w-full py-4 font-bold uppercase tracking-widest text-sm transition-colors flex items-center justify-center gap-2 min-h-[48px] touch-manipulation ${
-                  canAddToCart
+                  canProceed
                     ? 'bg-black text-white hover:bg-purple-600'
                     : 'bg-gray-300 text-gray-600 cursor-not-allowed'
                 }`}
               >
                 <ShoppingCart className="w-5 h-5" />
-                {adding ? 'Adding...' : (hasVariable && !selectedVariation) ? 'Select options' : (canAddToCart ? 'Add to Cart' : 'Out of Stock')}
+                {adding ? 'Adding...' : (hasVariable && !selectedVariation) ? 'Select options' : (canProceed ? 'Add to Cart' : 'Out of Stock')}
               </button>
               </div>
             </div>

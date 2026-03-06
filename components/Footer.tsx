@@ -111,7 +111,8 @@ const Footer: React.FC = () => {
             <Link to="/returns-policy" className="hover:text-purple-400 transition-colors">Returns Policy</Link>
         </div>
         <p className="text-zinc-600 text-[10px] font-bold uppercase tracking-widest">
-          © 2024 Soochuh.
+          © 2024 Soochuh. Designed and developed by{' '}
+          <a href="https://kaizentech.co.za/" target="_blank" rel="noopener noreferrer" className="hover:text-purple-400 transition-colors">Kaizen Technology</a>.
         </p>
       </div>
     </footer>

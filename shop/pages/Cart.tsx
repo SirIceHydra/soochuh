@@ -12,7 +12,7 @@ export default function Cart() {
   const navigate = useNavigate();
   const [updatingItemId, setUpdatingItemId] = useState<string | null>(null);
 
-  const FREE_SHIPPING_THRESHOLD = 1000;
+  const FREE_SHIPPING_THRESHOLD = Number(import.meta.env.VITE_FREE_SHIPPING_THRESHOLD ?? '1499');
   const shipping = cart.total >= FREE_SHIPPING_THRESHOLD 
     ? { cost: 0, text: 'Free' } 
     : { cost: 0, text: 'TBD' };
